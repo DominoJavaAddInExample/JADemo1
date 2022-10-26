@@ -1,18 +1,13 @@
 <project>
-  <mavenBuild>
-    <option dominoNotesPlatform=""/>
-    <option mavenBuildPath="/Users/joelanderson/Documents/Flex/temp_workspace/JavaAddinCoreDemo.git"/>
-    <option settingsFilePath=""/>
-    <option commandLine="clean package"/>
-    <option dominoNotesProgram=""/>
+  <gradleBuild>
+    <option commandLine="clean build"/>
     <actions>
-      <action actionName="Build" action="install"/>
-      <action actionName="Clean and package" action="clean package"/>
       <action actionName="Clean" action="clean"/>
-      <action actionName="Clean and Build" action="clean install"/>
-      <action actionName="Exploded" action="war:exploded"/>
+      <action actionName="Publish to Maven Local" action="publishToMavenLocal"/>
+      <action actionName="Clean and Run" action="clean run"/>
+      <action actionName="Clean and Build" action="clean build"/>
     </actions>
-  </mavenBuild>
+  </gradleBuild>
   <classpaths>
     <class path="src/main/java"/>
   </classpaths>
@@ -21,7 +16,7 @@
     <option mainclass="JavaAddinCoreDemo"/>
   </build>
   <options>
-    <option projectType="java-maven"/>
+    <option projectType="java-domino"/>
     <option jdkType="jdk-8"/>
   </options>
 </project>
