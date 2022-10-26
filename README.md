@@ -4,47 +4,76 @@
 
 Minimal example JavaAddin.  This addin just prints the number of person documents registered on the Domino server in names.nsf every 30 seconds (can be configurable).
 
-## How to build JAR using MAVEN
+## Build instructions:
 
-Make sure you have Maven installed.
+### Moonshine
 
-form the project in CLI run command:
+The following SDKs must be configured in Moonshine
+- Gradle
+- OpenJDK 8
 
-``mvn package``
+Run the project like this:
+1. Open the project in Moonshine
+2. Open build.gradle and confirm that `notesInstallation` is set to your HCL Notes directory.  TODO:  examples for each OS.
+3. Run `Project > Run Gradle Command..." in the project menu.
+4. The JAR will be generated at:  `build/libs/JavaAddinCoreDemo.jar`
 
-if run succesfully a file will be created in Target folder (i.e. JavaAddinCoreDemo-1.0.0.jar).
-It is required to have Notes.jar added to your maven local storage, see how to do that: https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html
+### Command Line
 
-## How to load JavaAddinCoreDemo inside of Domino
+Make sure you have Gradle installed.  `JAVA_HOME` should be JDK 8.  
 
-Open notes.ini on server and register your addin. For Example:
+For macOS set `DYLD_LIBRARY_PATH`:
+
+	export DYLD_LIBRARY_PATH=/Applications/HCL Notes.app/Contents/MacOS/
+	
+TODO:  Windows needs Notes on the PATH
+
+Open the project directory and run:
+
+``gradle clean build``
+
+If the build is successful, a file will be created in Target folder (i.e. `JavaAddinCoreDemo.jar`).
+
+
+## How to load JavaAddin inside of Domino
+
+Copy the JAR build above to a directory under the `JavaAddin` directory in the Domino directory.  For example:
 
 ``
-JavaUserClassesExt=GJA_Genesis,GJA_DominoMeter,JavaAddinCoreDemo
-GJA_DominoMeter=JavaAddin/DominoMeter/DominoMeter-118.jar
-GJA_Genesis=JavaAddin/Genesis/Genesis-0.6.15.jar
-JavaAddinCoreDemo=JavaAddinCoreDemo/JavaAddinCoreDemo-1.0.0.jar
+/local/dominodata/JavaAddin/JavaAddinCoreDemo/JavaAddinCoreDemo.jar
 ``
 
-Make sure you uploaded JavaAddinCoreDemo-1.0.0.jar to the folder JavaAddinClean. On Windows it would be under Domino folder while on Linux it could be under Data folder.
+Open notes.ini on server and add your addin to the classpath using the path selected above (relative to the Domino directory). For example:
 
-After that restart runjava task (first make quit and than load).
+``
+JavaUserClassesExt=JavaAddinCoreDemo
+JavaAddinCoreDemo=JavaAddin/JavaAddinCoreDemo/JavaAddinCoreDemo.jar
+``
+
+If `JavaUserClassesExt` already exists in notes.ini, you can add the new addin with comma separator:
+
+``
+JavaUserClassesExt=ExistingAddin,JavaAddinCoreDemo
+``
+
+
+After that, restart the runjava task:
 
 ``
 tell runjava quit
 ``
 
-Ensure all java addins have been unloaded by command
+Ensure all java addins have been unloaded (If the command returns an error, they are unloaded):
 
 ``
 tell runjava show tasks
 ``
 
-### Run Addin from Domino console
+Then load the addin like this.  The addin name is based on the main class (the class that implements JavaAddinCoreDemo)
 
 ``load runjava JavaAddinCoreDemo``
 
-### Unload Addin from Domino console
+The addin can be unloaded like this
 
 ``tell runjava unload JavaAddinCoreDemo``
 
@@ -52,6 +81,15 @@ Here is an example of successful run of JavaAddinCoreDemo
 
 ![image](https://user-images.githubusercontent.com/844872/198114625-ba4b2bb4-a7ad-48cf-85be-e4d3f5145625.png)
 
-If you see a message like below it means you have not registered JavaAddin properly or maybe it's built somehow worng.
+## Debugging
 
-> [57CC:0002-3994] 10/26/2022 09:12:08 PM  RunJava: Can't find class JavaAddinCoreDemo or lotus/notes/addins/JavaAddinCoreDemo/JavaAddinCoreDemo in the classpath.  Class names are case-sensitive.
+If you see a message like below:
+
+``
+RunJava: Can't find class JavaAddinCoreDemo or lotus/notes/addins/javaaddincoredemo/JavaAddinCoreDemo in the classpath.  Class names are case-sensitive.
+``
+
+Then check that:
+- `JavaUserClassesExt` and `JavaAddinCoreDemo` are populated correctly according to the instructions above.  
+- Navigate to the Domino data directory and check that the JAR path defined in `JavaAddinCoreDemo` exists.
+- If you renamed the main class, then make sure that class exists in the compiled JAR.
