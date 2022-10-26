@@ -1,11 +1,11 @@
 # JADemo1
 
-#Purpose
+# Purpose
 Use it for education or test purpose.
 
 The addin just prints amount of person documents registered on Domino server in names.nsf each 30 seconds (can be configurable)
 
-#How to build JAR using MAVEN
+# How to build JAR using MAVEN
 
 Make sure you have Maven installed.
 
@@ -16,7 +16,7 @@ form the project in CLI run command:
 if run succesfully a file will be created in Target folder (i.e. JADemo1-1.0.0.jar).
 It is required to have Notes.jar added to your maven local storage, see how to do that: https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html
 
-#How to load JADemo1 inside of Domino
+# How to load JADemo1 inside of Domino
 
 Open notes.ini on server and register you addin, the most efficient way would be below (see 3 differnt addins are registered)
 
