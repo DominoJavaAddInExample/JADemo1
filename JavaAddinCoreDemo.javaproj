@@ -1,0 +1,27 @@
+<project>
+  <mavenBuild>
+    <option dominoNotesPlatform=""/>
+    <option mavenBuildPath="/Users/joelanderson/Documents/Flex/temp_workspace/JavaAddinCoreDemo.git"/>
+    <option settingsFilePath=""/>
+    <option commandLine="clean package"/>
+    <option dominoNotesProgram=""/>
+    <actions>
+      <action actionName="Build" action="install"/>
+      <action actionName="Clean and package" action="clean package"/>
+      <action actionName="Clean" action="clean"/>
+      <action actionName="Clean and Build" action="clean install"/>
+      <action actionName="Exploded" action="war:exploded"/>
+    </actions>
+  </mavenBuild>
+  <classpaths>
+    <class path="src/main/java"/>
+  </classpaths>
+  <build>
+    <option mainClassPath="null"/>
+    <option mainclass="JavaAddinCoreDemo"/>
+  </build>
+  <options>
+    <option projectType="java-maven"/>
+    <option jdkType="jdk-8"/>
+  </options>
+</project>
