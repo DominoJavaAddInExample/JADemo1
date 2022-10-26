@@ -4,8 +4,8 @@ import lotus.domino.NotesFactory;
 import lotus.domino.Session;
 import lotus.notes.addins.JavaServerAddin;
 
-public class JADemo1 extends JavaServerAddin {
-	final String			JADDIN_NAME				= "JADemo1";
+public class JavaAddinCoreDemo extends JavaServerAddin {
+	final String			JADDIN_NAME				= "JavaAddinCoreDemo";
 	final String			JADDIN_VERSION			= "1.0.0";
 	final String			JADDIN_DATE				= "2022-10-26 11:05 CET";
 
@@ -16,12 +16,12 @@ public class JADemo1 extends JavaServerAddin {
 	private Database 		ab						= null;
 
 	// we expect our first parameter is dedicated for secondsElapsed
-	public JADemo1(String[] args) {
+	public JavaAddinCoreDemo(String[] args) {
 		this.secondsElapsed = Integer.parseInt(args[0]);
 	}
 
 	// constructor if no parameters
-	public JADemo1() {}
+	public JavaAddinCoreDemo() {}
 
 	@SuppressWarnings("deprecation")
 	public void runNotes() {

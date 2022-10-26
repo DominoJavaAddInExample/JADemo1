@@ -63,9 +63,6 @@ sourceSets {
     main {
         java {
             srcDirs = ['src/main/java']
-            
-            // The servlet requires additional dependencies that are not available with the Notes client
-            exclude '**/ExampleServlet*'
         }
     }
 }
@@ -77,19 +74,11 @@ targetCompatibility = 1.8
 dependencies {
     // Local JAR dependency
     implementation files(notesJarPath)
-}
-
-/*
-OPTIONAL:  Configuration to let this build and run in Moonshine
-Use "clean runApp" for the Gradle command
-*/
-task runApp(type: JavaExec) {
-	classpath = sourceSets.main.runtimeClasspath
-	main = mainClassName  // deprecated in later versions of Gradle - use mainClass
-	environment('DYLD_LIBRARY_PATH', notesInstallation)
-	environment('PATH', envPath)
-	
-	// args 'appArg1'
+    
+    // NOTE: Add any additional dependencies (local or Maven) here.  They will be automatically bundled in the JAR:
+    //implementation files('lib/myJar.jar')
+    //implementation 'org.json:json:20160212'  // Maven:  Format is 'groupid:name:version'
+    
 }
 
 
